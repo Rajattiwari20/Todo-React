@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+  /****************************** TODO COMPONENT**********************************/
+  
+  .todo-container{
+    min-height:  130px;
+  
+  } 
+  
+  .heading{
+    font-size: 1.2rem;
+    color:  #1986BB;
+  }
+  
+  .status{
+    color: #787977;
+  }
