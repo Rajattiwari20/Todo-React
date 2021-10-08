@@ -7,13 +7,17 @@ import AddTodo from './AddTodo'
  
 function Dropdown(props) {
 
-    console.log("DropDown props" , props)
+    // console.log("DropDown props" , props)
+
     const [user, setUser] = useState('');
     const handleChange = (event) => {
         setUser(event.target.value);
     };
+
+    //getting state by using useSelector hook
     const todo = useSelector((state) => state.todo)
 
+    // fetch all todo from api using useEffect hook
     useEffect (()=>{
         props.dispatch(fetchTodos())
     },[])
@@ -49,7 +53,8 @@ function Dropdown(props) {
             </Grid>
         </Grid>
 
-        {   user >=1 &&
+        {   //if there is any user selected then only show addTodo component
+        user >=1 &&
             <Grid container justifyContent= "center" spacing = {100}>
             <Grid item>
                 <AddTodo user= {user}/>
@@ -60,6 +65,7 @@ function Dropdown(props) {
         {todo &&
         todo.map((item, index)=>{
         return(
+            //show todos for specific user
             user === item.userId && 
           <Todo data = {item}  key = {index}  index = {index}/>
         )

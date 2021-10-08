@@ -9,6 +9,7 @@ function App(props) {
   );
 }
 
+//use of provider and connect helps to pass state with passing props in every component
 function mapStateToProps(state){
   return{
     todo:state.todo,

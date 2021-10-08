@@ -1,9 +1,11 @@
+//created all constant
 export const GET_TODO = 'GET_TODO'
 export const DELETE_TODO= "DELETE_TODO";
 export const COMPLETE_TODO= "COMPLETE_TODO";
 export const UPDATE_TODO= "COMPLETE_TODO";
 export const ADD_NEW_TODO = "ADD_NEW_TODO"
 
+//all required functions
 export function getTodos(todo){
     return{
         type:GET_TODO,
@@ -40,7 +42,9 @@ export function addNewTodo(data){
     }
 }
 
+//using thunk middleware with dispatch as an argument 
 
+//this function will hit todo api and dispatch an action with data
 export function fetchTodos(){
     const url= 'https://jsonplaceholder.typicode.com/todos';
     return function(dispatch){
@@ -57,6 +61,8 @@ export function fetchTodos(){
     }
 }
 
+ 
+//this function will hit delete todo api (fake) and dispatch an action to delete task
 export function handelDelete(id){
     const url='https://jsonplaceholder.typicode.com/todos/delete';
 
@@ -73,8 +79,10 @@ export function handelDelete(id){
     }
 }
 
+
+//this function will hit done todo api (fake) and dispatch an action to change status
 export function handelMarkCompleted(id){
-    const url='https://jsonplaceholder.typicode.com/todos/delete';
+    const url='https://jsonplaceholder.typicode.com/todos/done';
 
     return function(dispatch){
         fetch(url,{
@@ -93,8 +101,9 @@ export function handelMarkCompleted(id){
     }
 }
 
+//this function will hit update todo api (fake) and dispatch an action to update task
 export function handelUpdate(id, text){
-    const url='https://jsonplaceholder.typicode.com/todos/delete';
+    const url='https://jsonplaceholder.typicode.com/todos/update';
 
     return function(dispatch){
         fetch(url,{
@@ -109,6 +118,8 @@ export function handelUpdate(id, text){
     }
 }
 
+
+//this function will hit add todo api (fake) and dispatch an action to add todo
 export function handelAddTodo(userId, title, id){
     const url='https://jsonplaceholder.typicode.com/todos';
 

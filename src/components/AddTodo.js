@@ -14,11 +14,13 @@ function AddTodo(props) {
 
   const {user} = props
   const [open, setOpen] = useState(false);
+  //common alert
   const [alert , setAlert] = useState({
     showAlert: false,
     message : ""
 })
   const [newOpen , setNewOpen] = useState(false)
+  //created new data 
   const [newData , setNewData] = useState({
     userId: "",
     title : "",
@@ -29,6 +31,7 @@ function AddTodo(props) {
     setOpen(true);
   };
 
+  //getting new userId
   const handleUserId = (e) => {
     const newValue = parseInt(e.target.value)
     setNewData({
@@ -37,6 +40,7 @@ function AddTodo(props) {
     })
   };
   
+  //getting new taskId
   const handleTask = (e) => {
     const newValue = e.target.value
     setNewData({
@@ -44,6 +48,8 @@ function AddTodo(props) {
       title : newValue
     })
   };
+
+  //getting new task
   const handleIdTask = (e) => {
     const newValue = parseInt(e.target.value)
     setNewData({
@@ -56,6 +62,7 @@ function AddTodo(props) {
     setOpen(false);
   };
 
+  //call for add new todo it will dispatch an action with userId title and taskId
   const handleADD = () => {
     const {userId, title, id} = newData
     console.log(userId, title, id)

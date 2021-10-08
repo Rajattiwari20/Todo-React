@@ -11,6 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+//common alert component
 export default function Alert(props) {
   
   const {open , setOpen, message} = props

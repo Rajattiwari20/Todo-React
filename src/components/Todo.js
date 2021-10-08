@@ -11,11 +11,14 @@ function Todo(props) {
     // console.log( index , "props.data" , data.title)
     const[showEdit , setEdit] = useState(false);
     const [status, setStatus] =useState(data.completed)
+    //common alert 
     const [alert , setAlert] = useState({
         showAlert: false,
         message : ""
     })
     const [open, setOpen] = useState(false);
+
+    //call for deleting todo it will dispatch an action with id
     const handelDeleteTodo = (id) =>{
         props.dispatch(handelDelete(id))
         setAlert({
@@ -27,6 +30,7 @@ function Todo(props) {
         setStatus(false)
     }
 
+    //call for marking todo complete it will dispatch an action with id
     const handelMarkCompletedTodo = (id) =>{
         props.dispatch(handelMarkCompleted(id))
         setStatus(true)
@@ -36,6 +40,7 @@ function Todo(props) {
         setEdit(true)
     }
 
+        //call for edit/update todo complete it will dispatch an action with id
     const handelSave = (id) =>{
         const newTask = document.getElementById('newTask');
         props.dispatch(handelUpdate(id,newTask))
