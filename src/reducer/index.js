@@ -1,4 +1,4 @@
-import {GET_TODO , DELETE_TODO, COMPLETE_TODO, UPDATE_TODO} from '../action/index'
+import {GET_TODO , DELETE_TODO, COMPLETE_TODO, UPDATE_TODO , ADD_NEW_TODO} from '../action/index'
 
 const initialState={
     todo:[]
@@ -33,6 +33,12 @@ export default function rootReducer(state= initialState,action){
             return{
                 ...state,
                 todo:updatedTodo
+            }
+
+        case ADD_NEW_TODO:
+            console.log("reducer ==>" , action.data)
+            return{
+                todo:[action.data , ...state.todo ]
             }
 
         default:

@@ -9,14 +9,6 @@ function Dropdown(props) {
 
     console.log("DropDown props" , props)
     const [user, setUser] = useState('');
-    const [newData , setNewData] = useState({
-        userId: "",
-        showData : false,
-        title : "",
-        completed : "",
-        id: 200
-    })
-    
     const handleChange = (event) => {
         setUser(event.target.value);
     };
@@ -25,6 +17,7 @@ function Dropdown(props) {
     useEffect (()=>{
         props.dispatch(fetchTodos())
     },[])
+
     return (
         <>
         <Grid container justifyContent= "center" >
@@ -59,7 +52,7 @@ function Dropdown(props) {
         {   user >=1 &&
             <Grid container justifyContent= "center" spacing = {100}>
             <Grid item>
-                <AddTodo newData = {newData} setNewData = {setNewData} />
+                <AddTodo user= {user}/>
             </Grid>
         </Grid>
         }
@@ -68,9 +61,7 @@ function Dropdown(props) {
         todo.map((item, index)=>{
         return(
             user === item.userId && 
-          <>
-          <Todo data = {todo}  key = {index}  id = {item.id} index = {index}/>
-          </>
+          <Todo data = {item}  key = {index}  index = {index}/>
         )
       })
     }  

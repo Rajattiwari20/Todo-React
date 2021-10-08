@@ -1,4 +1,5 @@
 import  React, {useState} from 'react';
+import { connect } from "react-redux";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -6,11 +7,23 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Alert from './Alert'
+import {handelAddTodo} from '../action'
 
-export default function AddTodo(props) {
+function AddTodo(props) {
 
-  const {setNewData , newData} = props
+  const {user} = props
   const [open, setOpen] = useState(false);
+  const [alert , setAlert] = useState({
+    showAlert: false,
+    message : ""
+})
+  const [newOpen , setNewOpen] = useState(false)
+  const [newData , setNewData] = useState({
+    userId: "",
+    title : "",
+    id: ""
+})
   
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,16 +34,9 @@ export default function AddTodo(props) {
     setNewData({
       ...newData,
       userId : newValue
-     
     })
   };
-  const handleTaskId = (e) => {
-    const newValue = parseInt(e.target.value)
-    setNewData({
-      ...newData,
-      id : newValue
-    })
-  };
+  
   const handleTask = (e) => {
     const newValue = e.target.value
     setNewData({
@@ -38,12 +44,11 @@ export default function AddTodo(props) {
       title : newValue
     })
   };
-  const handleStatus = (e) => {
-    const newValue = e.target.value
+  const handleIdTask = (e) => {
+    const newValue = parseInt(e.target.value)
     setNewData({
       ...newData,
-      completed : newValue === "pending" ? false : true 
-
+      id :  newValue
     })
   };
 
@@ -52,8 +57,29 @@ export default function AddTodo(props) {
   };
 
   const handleADD = () => {
+    const {userId, title, id} = newData
+    console.log(userId, title, id)
+    if(title === ""){
+      setAlert({
+        showAlert : true,
+        message : "Please Fill All Informations ..."
+    })
+    setNewOpen(true)
+    return
+    }
+    props.dispatch(handelAddTodo(userId, title, id))
+    setNewData({
+      id : "",
+      title : "",
+      userId : ""
+    })
     setOpen(false);
-  };
+    setAlert({
+      showAlert : true,
+      message : "Todo Added ..."
+  })
+  setNewOpen(true)
+  }; 
 
 
   return (
@@ -84,7 +110,7 @@ export default function AddTodo(props) {
             fullWidth
             variant="standard"
             label = "Task Id"
-            onChange = {(e) => handleTaskId(e)}
+            onChange = {(e) => handleIdTask(e)}
           />
         </DialogContent>
         <DialogContent style ={{overflow: "hidden"}}>
@@ -99,24 +125,27 @@ export default function AddTodo(props) {
             onChange = {(e) => handleTask(e)}
           />
         </DialogContent>
-        <DialogContent style ={{overflow: "hidden"}}>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="status"
-            label="Status : Pending or Completed"
-            type="input"
-            fullWidth
-            variant="standard"
-            onChange = {(e) => handleStatus(e)}
-          />
-        </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleADD}>Add</Button>
         </DialogActions>
       </Dialog>
+      {         
+             alert.showAlert &&
+            <Alert open = {newOpen} setOpen = {setNewOpen} message = {alert.message}/>
+            }
     </>
   );
 }
+
+
+function mapStateToProps(state){
+  return{
+    todo:state.todo,
+  }
+}
+
+const connectedComponent=connect(mapStateToProps)(AddTodo);
+export default connectedComponent;
+
 
