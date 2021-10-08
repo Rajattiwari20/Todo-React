@@ -3,16 +3,26 @@ import { connect } from "react-redux";
 import {handelDelete , handelMarkCompleted, handelUpdate} from '../action'
 import {Grid, Paper, Button, TextField} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import Alert from './Alert'
  
 function Todo(props) {
 
     const{data , id , index} = props
     const[showEdit , setEdit] = useState(false);
     const [status, setStatus] =useState(data[id].completed)
-
-    
+    const [alert , setAlert] = useState({
+        showAlert: false,
+        message : ""
+    })
+    const [open, setOpen] = useState(false);
     const handelDeleteTodo = (id) =>{
         props.dispatch(handelDelete(id))
+        setAlert({
+            showAlert : true,
+            message : "Task Deleted"
+        })
+        setOpen(true)
+        console.log("show alert" ,  alert.showAlert )
         setStatus(false)
     }
 
@@ -61,7 +71,10 @@ function Todo(props) {
                 </Paper>
            </Grid>
         </Grid>
-        
+        {         
+             alert.showAlert &&
+            <Alert open = {open} setOpen = {setOpen} message = {alert.message}/>
+            }
         </>
     )
 }
